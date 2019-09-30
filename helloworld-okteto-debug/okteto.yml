@@ -1,0 +1,13 @@
+name: hello-world
+command:
+  - java
+  - -Xdebug
+  - -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8088
+  - -cp
+  - /app/resources:/app/classes:/app/libs/*
+  - es.okteto.helloworld.Application
+mountpath: /app/classes
+subpath: target/classes
+forward:
+  - 8080:8080
+  - 8088:8088

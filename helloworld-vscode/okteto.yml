@@ -1,0 +1,2 @@
+name: hello-world
+image: maven:3-jdk-8
