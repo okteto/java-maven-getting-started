@@ -9,7 +9,7 @@
 		<version>2.1.8.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>es.okteto</groupId>
+	<groupId>com.okteto</groupId>
 	<artifactId>helloworld</artifactId>
 	<version>0.0.1</version>
 	<name>helloworld</name>

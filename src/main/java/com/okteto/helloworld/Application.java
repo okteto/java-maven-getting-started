@@ -1,4 +1,4 @@
-package es.okteto.helloworld;
+package com.okteto.helloworld;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
