@@ -1,0 +1,8 @@
+name: hello-world
+image: maven
+command: ["bash"]
+volumes:
+  - /root/.m2
+forward:
+  - 8080:8080
+  - 8088:8088
