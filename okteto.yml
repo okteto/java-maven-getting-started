@@ -1,5 +1,5 @@
 name: hello-world
-image: okteto/maven:latest
+image: maven:latest
 command:
   - bash
 environment:
