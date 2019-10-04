@@ -1,6 +1,7 @@
 name: hello-world
-image: maven
-command: ["bash"]
+image: okteto/maven:latest
+command:
+  - bash
 volumes:
   - /root/.m2
 forward:
