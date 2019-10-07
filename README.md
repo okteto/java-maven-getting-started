@@ -11,30 +11,29 @@ Get a local version of the Java Sample App by executing the following commands i
 ```console
 $ git clone https://github.com/okteto/java-maven-getting-started
 $ cd java-maven-getting-started
-```
 
-The `k8s.yml` file contains the raw Kubernetes manifests that we will use in this guide to deploy the application in the cluster. Okteto works however independently of your common deployment practices or tools.
-
-Run the Java Sample App by executing:
+The `k8s.yml` file contains the raw Kubernetes manifests to deploy the Java Sample App. Run the application by executing:
 
 ```console
 $ kubectl apply -f k8s.yml
+```
+
+```console
 deployment.apps "hello-world" created
 service "hello-world" created
 ```
 
-> If you don't have `kubectl` installed, follow this [guide](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
+This is cool! You typed one command and your application just runs 😎. 
 
-## Step 2: Install the Okteto CLI
+## Step 2: Start your development environment in Kubernetes
 
-Install the Okteto CLI by following our [installation guides](https://github.com/okteto/okteto/blob/master/docs/installation.md).
-
-## Step 3: Create your ephemeral development environment
-
-With the app deployed, you can start your ephemeral development environment by running the following command:
+With the Java Sample Application deployed, run the following command in your local terminal:
 
 ```console
 $ okteto up
+```
+
+```console
  ✓  Persistent volume provisioned
  ✓  Files synchronized
  ✓  Okteto Environment activated
@@ -46,38 +45,92 @@ $ okteto up
 okteto>
 ```
 
-The `okteto up` command will automatically start an ephemeral development environment, which means:
+The `okteto up` command starts a [Kubernetes development environment](https://okteto.com/docs/reference/development-environment/index.html), which means:
 
-- The Java Sample App container is updated with the docker image `maven`. This image contains the required dev tools to build, test and run the Java Sample App. Enjoy the advantages of having development environments as code.
-- Create a bidirectional file synchronization service to keep your changes up-to-date between your local filesystem and your remote containers. Moving diff of code through the internet is way faster than moving Docker layers.
-- Forward the container ports 8080 (the application) and 8088 (the debugger) to localhost.
-- Start a terminal into the remote container. Build, test and run your application as if you were in your local machine.
+- The Java Sample App container is updated with the Docker image `maven:latest`. This image contains the required dev tools to build, test and run a Java application.
+- A [file synchronization service](https://okteto.com/docs/reference/file-synchronization/index.html) is created to keep your changes up-to-date between your local filesystem and your application pods.
+- Inject the `JAVA_OPTS` environment variable to automatically run the Java application in debug mode.
+- Attach a volume to persist the Maven cache in your Kubernetes development environment.
+- Container ports 8080 (the application) and 8088 (the debugger) are forwarded to localhost.
+- Start a terminal into the remote container. Build, test and run your application as if you were in your local machine and get your application logs immediately in your terminal.
 
-Now run your application by executing the following command:
+All of this (and more) can be customized via the `okteto.yml` [manifest file](https://okteto.com/docs/reference/manifest/index.html)
+
+To run the application execute in the Okteto terminal:
 
 ```console
 okteto> mvn spring-boot:run
-[INFO] Scanning for projects...
-...
-
 ```
 
-You can now access the Java Sample App at http://localhost:8080.
+The first time you run the application, Maven will download your dependencies and comile your application. Wait for this proccess to finish and test your application by running the command below in a local terminal:
 
-## Step 4: Develop directly in Kubernetes
+```console
+$ curl localhost:8080
+```
 
-Now things get more exciting. Edit the file `src/main/java/es/okteto/helloworld/RestHelloWorld.java` and modify the hello world message on line 11. Save your changes. You IDE will autocompile the necessary `*.class` files which will be synched to the the remote container. Note how the chages are detected by the `mvn spring-boot:run` command.
+```console
+Hello world REST API!
+```
 
-Go back to the browser and reload the page. Notice how your changes are instantly applied. No commit, build or push required 😎! 
+## Step 3: Develop directly in Kubernetes
 
-Attach a debugger from your favourite IDE to `localhost:8088`  and you will be able to debug you applications as if it was running locally.
+Open `src/main/java/com/okteto/helloworld/RestHelloWorld.java` in your favorite local IDE and modify the response message on line 11 to be *Hello world REST API from the cluster!*. Save your changes. 
+
+```java
+package com.okteto.helloworld;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class RestHelloWorld {
+	
+	@GetMapping("/")
+	public String sayHello() {
+		return "Hello world REST API from the cluster!";
+	}
+}
+```
+
+Your IDE will auto compile only the necessary `*.class` files which will be synchronized by Okteto to your application in Kubernetes. Take a look at the Okteto terminal and notice how the changes are detected by Spring Boot and automatically hot reloaded. To enable Spring Boot hot reloads you need to import the `spring-boot-devtools` dependency in your application: 
+
+```console
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-devtools</artifactId>
+</dependency>
+```
+
+Call your application to validate the changes:
+
+```console
+$ curl localhost:8080
+```
+
+```console
+Hello world REST API from the cluster!
+```
+
+Cool! Your code changes were instantly applied to Kubernetes. No commit, build or push required 😎!
+
+## Step 4: Debug directly in Kubernetes
+
+Okteto enables you to debug your applications directly from your favorite IDE. Let's take a look at how that works in Eclipse, one of the most popular IDEs for Java development.
+
+Open the _Debug configuration_  dialog, add a new Remote Java Application debug configuration, and point it to `localhost:8088`. Click the Debug button to start debugging. Add a breakpoint on `src/main/java/es/okteto/helloworld/RestHelloWorld.java`, line 11, and call your application by running the command below from your local terminal.
+
+```console
+$ curl localhost:8080
+```
+
+The execution will halt at your breakpoint. You can then inspect the request, the available variables, etc...
 
 ## Step 5: Cleanup
 
 Cancel the `okteto up` command by pressing `ctrl + c` + `ctrl + d` and run the following commands to remove the resources created by this guide: 
 
 ```console
-$ okteto down -v
+$ okteto down
  ✓  Okteto Environment deactivated
  ✓  Persistent volume deleted
 ```
