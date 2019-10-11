@@ -62,7 +62,7 @@ To run the application execute in the Okteto terminal:
 okteto> mvn spring-boot:run
 ```
 
-The first time you run the application, Maven will download your dependencies and comile your application. Wait for this proccess to finish and test your application by running the command below in a local terminal:
+The first time you run the application, Maven will download your dependencies and compile your application. Wait for this proccess to finish and test your application by running the command below in a local terminal:
 
 ```console
 $ curl localhost:8080
