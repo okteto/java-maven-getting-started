@@ -68,12 +68,12 @@ $ curl localhost:8080
 ```
 
 ```console
-Hello world REST API!
+Hello world!
 ```
 
 ## Step 3: Develop directly in Kubernetes
 
-Open `src/main/java/com/okteto/helloworld/RestHelloWorld.java` in your favorite local IDE and modify the response message on line 11 to be *Hello world REST API from the cluster!*. Save your changes. 
+Open `src/main/java/com/okteto/helloworld/RestHelloWorld.java` in your favorite local IDE and modify the response message on line 11 to be *Hello world from the cluster!*. Save your changes. 
 
 ```java
 package com.okteto.helloworld;
@@ -86,7 +86,7 @@ public class RestHelloWorld {
 	
 	@GetMapping("/")
 	public String sayHello() {
-		return "Hello world REST API from the cluster!";
+		return "Hello world from the cluster!";
 	}
 }
 ```
@@ -107,7 +107,7 @@ $ curl localhost:8080
 ```
 
 ```console
-Hello world REST API from the cluster!
+Hello world from the cluster!
 ```
 
 Cool! Your code changes were instantly applied to Kubernetes. No commit, build or push required 😎!
