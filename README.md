@@ -49,7 +49,7 @@ The `okteto up` command starts a [Kubernetes development environment](https://ok
 
 - The Java Sample App container is updated with the Docker image `maven:latest`. This image contains the required dev tools to build, test and run a Java application.
 - A [file synchronization service](https://okteto.com/docs/reference/file-synchronization/index.html) is created to keep your changes up-to-date between your local filesystem and your application pods.
-- Attach a volume to persist the Maven cache in your Kubernetes development environment.
+- A volume is attached to persist the Maven cache in your Kubernetes development environment.
 - Container ports 8080 (the application) and 8088 (the debugger) are forwarded to localhost.
 - You have a remote shell in the development environment. Build, test and run your application as if you were in your local machine.
 
@@ -130,11 +130,17 @@ Cancel the `okteto up` command by pressing `ctrl + c` + `ctrl + d` and run the f
 
 ```console
 $ okteto down
+```
+
+```console
  ✓  Development environment deactivated
 ```
 
 ```console
 $ kubectl delete -f k8s.yml
+```
+
+```console
 deployment.apps "hello-world" deleted
 service "hello-world" deleted
 ```
