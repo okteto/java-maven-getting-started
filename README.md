@@ -15,6 +15,8 @@ $ cd java-maven-getting-started
 
 The `k8s.yml` file contains the raw Kubernetes manifests to deploy the Java Sample App. Run the application by executing:
 
+> If you don't have `kubectl` installed, follow this [guide](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
+
 ```console
 $ kubectl apply -f k8s.yml
 ```
@@ -123,6 +125,8 @@ $ curl localhost:8080
 ```
 
 The execution will halt at your breakpoint. You can then inspect the request, the available variables, etc...
+
+![Debug directly in Kubernetes](images/halt.png)
 
 ## Step 5: Cleanup
 
