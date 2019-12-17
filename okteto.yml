@@ -1,7 +1,6 @@
 name: hello-world
 image: maven:latest
-command:
-  - bash
+command: ["bash"]
 volumes:
   - /root/.m2
 forward:
