@@ -55,7 +55,7 @@ The `okteto up` command starts a [Kubernetes development environment](https://ok
 - Container ports 8080 (the application) and 8088 (the debugger) are forwarded to localhost.
 - You have a remote shell in the development environment. Build, test and run your application as if you were in your local machine.
 
-> All of this (and more) can be customized via the `okteto.yml` [manifest file](https://okteto.com/docs/reference/manifest/index.html)
+> All of this (and more) can be customized via the `okteto.yml` [manifest file](https://okteto.com/docs/reference/manifest/index.html). You can also use the file `.stignore` to skip files from file synchronization. This is useful to avoid synchronizing binaries or git metadata.
 
 To run the application execute in the remote shell:
 
