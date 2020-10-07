@@ -1,9 +1,0 @@
-name: hello-world
-image: okteto/hello-world:java-maven-dev
-command: ["mvn", "spring-boot:run" ]
-workdir: /code
-forward:
-  - 8080:8080
-  - 8088:8088
-persistentVolume:
-  enabled: false
