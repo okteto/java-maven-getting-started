@@ -1,19 +1,14 @@
-name: java-maven-getting-started
 build:
-  java-maven-getting-started:
+  hello-world:
+    image: okteto.dev/java-maven-hello-world:1.0.0
     context: .
-    dockerfile: Dockerfile
 deploy:
   - kubectl apply -f k8s.yml
 dev:
   hello-world:
-    image: okteto/maven:3
-    command: java -jar *.jar
-    workdir: /app
+    command: bash
     sync:
       - .:/app
     forward:
       - 5005:5005
       - 8080:8080
-    volumes:
-      - /root/.m2
