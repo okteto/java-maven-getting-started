@@ -8,6 +8,6 @@ dev:
   hello-world:
     command: mvn spring-boot:run
     sync:
-      - .:/app
+      - .:/usr/src/app
     forward:
       - 5005:5005
