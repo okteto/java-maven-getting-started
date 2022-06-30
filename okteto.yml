@@ -11,5 +11,5 @@ dev:
       - .:/usr/src/app
     forward:
       - 5005:5005
-volumes:
-          - /root/.m2
+    volumes:
+      - /root/.m2
