@@ -15,7 +15,6 @@ spec:
       - image: okteto.dev/java-maven-hello-world:1.0.0
         name: hello-world
 
-
 ---
 
 apiVersion: v1
