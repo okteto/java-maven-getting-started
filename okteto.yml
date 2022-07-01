@@ -1,0 +1,16 @@
+build:
+  hello-world:
+    image: okteto.dev/java-maven-hello-world:1.0.0
+    context: .
+deploy:
+  - kubectl apply -f k8s.yml
+dev:
+  hello-world:
+    image: okteto/maven:3
+    command: bash
+    sync:
+      - .:/usr/src/app
+    forward:
+      - 5005:5005
+    volumes:
+      - /root/.m2
