@@ -1,7 +1,7 @@
 FROM maven as build
 WORKDIR /code
 COPY . /code/
-RUN mvn --batch-mode --no-transfer-progress package
+RUN ./mvnw --batch-mode --no-transfer-progress package
 
 FROM gcr.io/distroless/java17-debian11
 EXPOSE 8080
