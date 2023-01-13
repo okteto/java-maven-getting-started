@@ -1,7 +1,7 @@
-FROM maven as build
+FROM maven:3.8.7-eclipse-temurin-17 as build
 WORKDIR /code
 COPY . /code/
-RUN ./mvnw --batch-mode --no-transfer-progress package
+RUN mvn --batch-mode --no-transfer-progress package
 
 FROM gcr.io/distroless/java17-debian11
 EXPOSE 8080
