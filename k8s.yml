@@ -12,7 +12,7 @@ spec:
         app: hello-world
     spec:
       containers:
-      - image: okteto.dev/java-maven-hello-world:1.0.0
+      - image: okteto/java-maven-getting-started:hello-world
         name: hello-world
 
 ---
