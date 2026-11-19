@@ -1,0 +1,5 @@
+apiVersion: v2
+name: hello-world
+description: The Java Sample App (Maven)
+type: application
+version: 0.1.0
