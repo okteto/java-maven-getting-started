@@ -1,2 +1,13 @@
+# Files that "okteto up" does not synchronize with the development container.
+
+# Git metadata: large, and only needed on your machine
 .git
-?
+
+# Build output generated inside the development container
+/target
+
+# Local-only files
+.idea
+*.iml
+.vscode
+.DS_Store

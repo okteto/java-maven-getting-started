@@ -16,22 +16,23 @@
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
-		<java.version>17</java.version>
+		<java.version>25</java.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
+			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 
@@ -41,9 +42,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-				<jvmArguments>
-					-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
-				</jvmArguments>
+					<jvmArguments>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005</jvmArguments>
 				</configuration>
 			</plugin>
 		</plugins>
