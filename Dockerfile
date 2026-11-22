@@ -5,11 +5,13 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src/app
-COPY mvnw pom.xml ./
-COPY .mvn .mvn
-RUN ./mvnw dependency:go-offline
 COPY . .
-RUN ./mvnw package -DskipTests
+
+# The cache mount keeps the Maven repository, with the Maven distribution and
+# the dependencies, in the Okteto Build Service, which reuses it between
+# builds. The tests of the Okteto Manifest use the same cache
+RUN --mount=type=cache,target=/root/.m2 \
+    ./mvnw package -DskipTests
 
 FROM eclipse-temurin:25.0.5_8-jre-resolute AS prod
 
